@@ -1,0 +1,46 @@
+#include <stdio.h>
+#include <string.h>
+
+typedef struct {
+    char op[10];
+    char arg1[10];
+    char arg2[10];
+    char result[10];
+} Triple;
+
+void findTriples(const char* intermediateCode) {
+    // Assuming each line of the intermediate code is separated by a newline character
+    const char* delimiters = "\n";
+    char* line = strtok((char*)intermediateCode, delimiters);
+
+    while (line != NULL) {
+        // Parse the intermediate code line into three fields
+        char op[10], arg1[10], arg2[10], result[10];
+        sscanf(line, "%s %s %s %s", op, arg1, arg2, result);
+
+        // Store the parsed triple in a Triple struct
+        Triple triple;
+        strcpy(triple.op, op);
+        strcpy(triple.arg1, arg1);
+        strcpy(triple.arg2, arg2);
+        strcpy(triple.result, result);
+
+        // Print the triple or perform any desired operations
+        printf("(%s, %s, %s, %s)\n", triple.op, triple.arg1, triple.arg2, triple.result);
+
+        // Move to the next line in the intermediate code
+        line = strtok(NULL, delimiters);
+    }
+}
+
+int main() {
+    const char* intermediateCode =
+        "ADD 2 3 TEMP1\n"
+        "SUB TEMP1 1 RESULT\n"
+        "MUL 5 RESULT TEMP2\n"
+        "DIV TEMP2 2 FINAL_RESULT\n";
+
+    findTriples(intermediateCode);
+
+    return 0;
+}
