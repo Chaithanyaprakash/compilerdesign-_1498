@@ -1,0 +1,17 @@
+%{
+#include<stdio.h>
+%}
+
+%%
+^[a-z A-Z_][a-z A-Z 0-9_]* printf("valid identifier");
+^[^a-z A-Z_] printf("invalid identifier");
+.;
+%%
+
+int yywrap()
+{}
+
+int main()
+{
+yylex();
+}
